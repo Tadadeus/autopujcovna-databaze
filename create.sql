@@ -18,7 +18,16 @@ CREATE TABLE znacka (
     PRIMARY KEY (id_znacka)
 );
 
-
+CREATE TABLE model (
+    id_model        INT             NOT NULL AUTO_INCREMENT,
+    id_znacka       INT             NOT NULL,
+    nazev           VARCHAR(50)     NOT NULL,
+    karoserie       VARCHAR(30)     NOT NULL,
+    pocet_mist      INT             NOT NULL,
+    palivo          VARCHAR(20)     NOT NULL,
+    PRIMARY KEY (id_model),
+    FOREIGN KEY (id_znacka) REFERENCES znacka(id_znacka)
+);
 
 CREATE TABLE pobocka (
     id_pobocka      INT             NOT NULL AUTO_INCREMENT,
