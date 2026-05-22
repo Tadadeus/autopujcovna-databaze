@@ -10,7 +10,6 @@ Tento projekt představuje relační databázi pro systém autopůjčovny. Cíle
 - SQL skript pro vytvoření tabulek (`create.sql`)
 - SQL skript s ukázkovými daty (`insert.sql`)
 - SQL dotazy nad databází (`queries.sql`)
--
 
 ---
 
