@@ -22,10 +22,13 @@ Databáze obsahuje následující entity:
 - vozidlo
 - zákazník
 - výpůjčka
+- výpůjčka_vozidlo
 - platba
 - škoda
 - pobočka
 - zaměstnanec
+
+Jedna výpůjčka může obsahovat více vozidel a jedno vozidlo může být součástí více výpůjček – tento vztah M:N je vyřešen pomocí vazební tabulky `vypujcka_vozidlo`. Škoda je navázána na konkrétní vozidlo v dané výpůjčce.
 
 Tyto entity jsou propojeny pomocí cizích klíčů a tvoří relační databázový model splňující normalizační pravidla.
 
@@ -43,7 +46,7 @@ Tyto entity jsou propojeny pomocí cizích klíčů a tvoří relační databáz
 
 - Správa vozidel a jejich modelů
 - Evidence zákazníků
-- Evidence výpůjček
+- Evidence výpůjček (i s více vozidly)
 - Sledování plateb a škod
 - Propojení dat pomocí JOIN operací
 
