@@ -100,7 +100,7 @@ GROUP BY zakaznik.prijmeni
 HAVING COUNT(vypujcka.id_vypujcka) > 1;
 
 -- Dotaz 15: Spocitej u kazde vypujcky pocet dni a celkovou cenu (vypocet).
--- (JOIN JOIN, Vypocet, ORDER BY, GROUP BY, Funkce COUNT, WHERE, AS)
+-- (RIGHT JOIN, Vypocet, ORDER BY, GROUP BY, Funkce COUNT, WHERE, AS)
 SELECT vozidlo.spz,
        vozidlo.cena_za_den * 30 AS cena_za_mesic,
        COUNT(vypujcka.id_vypujcka) AS pocet_vypujcek
