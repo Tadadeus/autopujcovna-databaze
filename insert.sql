@@ -10,7 +10,15 @@ INSERT INTO znacka (nazev, zeme_puvodu, rok_zalozeni) VALUES
 ('Hyundai', 'Korea', 1967),
 ('Audi', 'Nemecko', 1909);
 
-
+INSERT INTO model (id_znacka, nazev, karoserie, pocet_mist, palivo) VALUES
+(1, 'Octavia', 'kombi', 5, 'benzin'),
+(1, 'Fabia', 'hatchback', 5, 'benzin'),
+(2, 'Golf', 'hatchback', 5, 'nafta'),
+(3, 'Corolla', 'sedan', 5, 'hybrid'),
+(4, 'Rada 3', 'sedan', 5, 'nafta'),
+(5, 'Focus', 'kombi', 5, 'benzin'),
+(6, 'Clio', 'hatchback', 5, 'benzin'),
+(7, 'Tucson', 'SUV', 5, 'hybrid');
 
 INSERT INTO pobocka (nazev, mesto, adresa, telefon) VALUES
 ('Pobocka Centrum', 'Praha', 'Vaclavske namesti 12', '+420211111111'),
