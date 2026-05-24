@@ -82,7 +82,7 @@ SELECT pobocka.mesto, COUNT(vozidlo.id_vozidlo) AS pocet_vozidel
 FROM pobocka
 LEFT JOIN vozidlo ON pobocka.id_pobocka = vozidlo.id_pobocka
 WHERE pobocka.id_pobocka > 0
-GROUP BY pobocka.mesto;
+GROUP BY pobocka.id_pobocka, pobocka.mesto
 
 -- Dotaz 13: Spocita prumernou cenu za den u vsech vozidel
 -- (Funkce AVG, WHERE, AS)
@@ -97,7 +97,7 @@ FROM zakaznik
 JOIN vypujcka ON zakaznik.id_zakaznik = vypujcka.id_zakaznik
 WHERE vypujcka.id_vypujcka > 0
 GROUP BY zakaznik.prijmeni
-HAVING COUNT(vypujcka.id_vypujcka) >= 1;
+HAVING COUNT(vypujcka.id_vypujcka) > 1;
 
 -- Dotaz 15: Spocitej u kazde vypujcky pocet dni a celkovou cenu (vypocet).
 -- (JOIN JOIN, Vypocet, ORDER BY, GROUP BY, Funkce COUNT, WHERE, AS)

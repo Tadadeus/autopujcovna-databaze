@@ -31,13 +31,13 @@ INSERT INTO pobocka (nazev, mesto, adresa, telefon) VALUES
 ('Pobocka Usti', 'Usti nad Labem', 'Mirove namesti 1', '+420475888888');
 
 INSERT INTO zamestnanec (id_pobocka, jmeno, prijmeni, pozice, plat) VALUES
-(1, 'Petr', 'Novak', 'Vedouci pobocky', 52000.00),
+(1, 'Petr', 'Novak', 'Vedouci', 52000.00),
 (1, 'Jana', 'Svobodova', 'Operator', 34000.00),
-(2, 'Martin', 'Dvorak', 'Vedouci pobocky', 50000.00),
+(2, 'Martin', 'Dvorak', 'Vedouci', 50000.00),
 (3, 'Lucie', 'Cerna', 'Operator', 33000.00),
 (3, 'Tomas', 'Prochazka', 'Mechanik', 38000.00),
 (4, 'Eva', 'Kralova', 'Operator', 32000.00),
-(5, 'Jan', 'Vesely', 'Vedouci pobocky', 49000.00),
+(5, 'Jan', 'Vesely', 'Vedouci', 49000.00),
 (6, 'Marie', 'Horakova', 'Operator', 31000.00);
 
 INSERT INTO vozidlo (id_model, id_pobocka, spz, rok_vyroby, najezd_km, cena_za_den) VALUES
