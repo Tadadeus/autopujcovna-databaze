@@ -46,12 +46,13 @@ JOIN model ON vozidlo.id_model = model.id_model
 JOIN znacka ON model.id_znacka = znacka.id_znacka
 WHERE vozidlo.rok_vyroby >= 2020;
 
--- Dotaz 8: Vypise vypujcky i se jmenem zakaznika a SPZtkou vozidla
+-- Dotaz 8: Vypise ktera vozidla byla v jednotlivych vypujckach spolu se jmenem zakaznika
 -- (JOIN ON, WHERE)
 SELECT vypujcka.id_vypujcka, zakaznik.prijmeni, vozidlo.spz, vypujcka.stav
 FROM vypujcka
 JOIN zakaznik ON vypujcka.id_zakaznik = zakaznik.id_zakaznik
-JOIN vozidlo ON vypujcka.id_vozidlo = vozidlo.id_vozidlo
+JOIN vypujcka_vozidlo ON vypujcka.id_vypujcka = vypujcka_vozidlo.id_vypujcka
+JOIN vozidlo ON vypujcka_vozidlo.id_vozidlo = vozidlo.id_vozidlo
 WHERE vypujcka.stav = 'ukoncena';
 
 -- Dotaz 9: Vypise zamestnance a mesto pobocky kde pracuji
@@ -69,12 +70,13 @@ JOIN vypujcka ON platba.id_vypujcka = vypujcka.id_vypujcka
 JOIN zakaznik ON vypujcka.id_zakaznik = zakaznik.id_zakaznik
 WHERE platba.castka > 5000;
 
--- Dotaz 11: Vypise vsechny vypujcky a skody i kdyz skoda nenastala
+-- Dotaz 11: Vypise vsechny polozky vypujcek a skody i kdyz skoda nenastala
 -- (LEFT JOIN, JOIN ON, WHERE)
-SELECT vypujcka.id_vypujcka, vypujcka.stav, skoda.popis
-FROM vypujcka
-LEFT JOIN skoda ON vypujcka.id_vypujcka = skoda.id_vypujcka
-WHERE vypujcka.id_vypujcka > 0;
+SELECT vypujcka_vozidlo.id_polozka, vozidlo.spz, skoda.popis
+FROM vypujcka_vozidlo
+JOIN vozidlo ON vypujcka_vozidlo.id_vozidlo = vozidlo.id_vozidlo
+LEFT JOIN skoda ON vypujcka_vozidlo.id_polozka = skoda.id_polozka
+WHERE vypujcka_vozidlo.id_polozka > 0;
 
 -- Dotaz 12: Vypise vsechny pobocky a pocet vozidel ktere tam maji i kdyz nemaji zadne
 -- (LEFT JOIN, GROUP BY, WHERE, AS, Funkce COUNT)
@@ -82,7 +84,7 @@ SELECT pobocka.mesto, COUNT(vozidlo.id_vozidlo) AS pocet_vozidel
 FROM pobocka
 LEFT JOIN vozidlo ON pobocka.id_pobocka = vozidlo.id_pobocka
 WHERE pobocka.id_pobocka > 0
-GROUP BY pobocka.id_pobocka, pobocka.mesto
+GROUP BY pobocka.id_pobocka, pobocka.mesto;
 
 -- Dotaz 13: Spocita prumernou cenu za den u vsech vozidel
 -- (Funkce AVG, WHERE, AS)
@@ -90,22 +92,22 @@ SELECT AVG(cena_za_den) AS prumerna_cena
 FROM vozidlo
 WHERE cena_za_den > 0;
 
--- Dotaz 14: Vypise zakazniky kteri maji vice nez jednu vypujcku
+-- Dotaz 14: Vypise vypujcky ktere obsahuji vice nez jedno vozidlo
 -- (JOIN ON, GROUP BY, HAVING, WHERE, AS, Funkce COUNT)
-SELECT zakaznik.prijmeni, COUNT(vypujcka.id_vypujcka) AS pocet_vypujcek
-FROM zakaznik
-JOIN vypujcka ON zakaznik.id_zakaznik = vypujcka.id_zakaznik
+SELECT vypujcka.id_vypujcka, COUNT(vypujcka_vozidlo.id_vozidlo) AS pocet_vozidel
+FROM vypujcka
+JOIN vypujcka_vozidlo ON vypujcka.id_vypujcka = vypujcka_vozidlo.id_vypujcka
 WHERE vypujcka.id_vypujcka > 0
-GROUP BY zakaznik.prijmeni
-HAVING COUNT(vypujcka.id_vypujcka) > 1;
+GROUP BY vypujcka.id_vypujcka
+HAVING COUNT(vypujcka_vozidlo.id_vozidlo) > 1;
 
--- Dotaz 15: Spocitej u kazde vypujcky pocet dni a celkovou cenu (vypocet).
+-- Dotaz 15: Vypise vozidla i s poctem vypujcek a cenou za mesic vcetne vozidel ktera nebyla nikdy pujcena
 -- (RIGHT JOIN, Vypocet, ORDER BY, GROUP BY, Funkce COUNT, WHERE, AS)
 SELECT vozidlo.spz,
        vozidlo.cena_za_den * 30 AS cena_za_mesic,
-       COUNT(vypujcka.id_vypujcka) AS pocet_vypujcek
-FROM vypujcka
-RIGHT JOIN vozidlo ON vypujcka.id_vozidlo = vozidlo.id_vozidlo
+       COUNT(vypujcka_vozidlo.id_vozidlo) AS pocet_vypujcek
+FROM vypujcka_vozidlo
+RIGHT JOIN vozidlo ON vypujcka_vozidlo.id_vozidlo = vozidlo.id_vozidlo
 WHERE vozidlo.cena_za_den > 0
 GROUP BY vozidlo.spz, vozidlo.cena_za_den
 ORDER BY cena_za_mesic DESC;
