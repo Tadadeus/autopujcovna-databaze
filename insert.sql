@@ -60,31 +60,45 @@ INSERT INTO zakaznik (jmeno, prijmeni, email, telefon, cislo_ridicaku) VALUES
 ('Michal', 'Kucera', 'michal.kucera@email.cz', '+420607777777', 'CR7890123'),
 ('Petra', 'Ruzickova', 'petra.ruzickova@email.cz', '+420608888888', 'CR8901234');
 
-INSERT INTO vypujcka (id_zakaznik, id_vozidlo, id_zamestnanec, datum_od, datum_do, stav) VALUES
-(1, 1, 1, '2025-01-10', '2025-01-15', 'ukoncena'),
-(2, 3, 3, '2025-02-01', '2025-02-05', 'ukoncena'),
-(3, 4, 4, '2025-03-12', '2025-03-20', 'ukoncena'),
-(4, 5, 5, '2025-03-15', '2025-03-18', 'ukoncena'),
-(5, 2, 2, '2025-04-01', '2025-04-03', 'aktivni'),
-(6, 6, 6, '2025-04-05', '2025-04-10', 'aktivni'),
-(7, 7, 7, '2025-04-08', '2025-04-12', 'aktivni'),
-(8, 8, 8, '2025-04-10', '2025-04-20', 'rezervovana');
+INSERT INTO vypujcka (id_zakaznik, id_zamestnanec, datum_od, datum_do, stav) VALUES
+(1, 1, '2025-01-10', '2025-01-15', 'ukoncena'),
+(2, 3, '2025-02-01', '2025-02-05', 'ukoncena'),
+(3, 4, '2025-03-12', '2025-03-20', 'ukoncena'),
+(4, 5, '2025-03-15', '2025-03-18', 'ukoncena'),
+(5, 2, '2025-04-01', '2025-04-03', 'aktivni'),
+(6, 6, '2025-04-05', '2025-04-10', 'aktivni'),
+(7, 7, '2025-04-08', '2025-04-12', 'aktivni'),
+(8, 8, '2025-04-10', '2025-04-20', 'rezervovana');
+
+INSERT INTO vypujcka_vozidlo (id_vypujcka, id_vozidlo, cena_za_den) VALUES
+(1, 1, 1200.00),
+(1, 2, 900.00),
+(2, 3, 1100.00),
+(3, 4, 1500.00),
+(3, 5, 1800.00),
+(4, 5, 1800.00),
+(5, 2, 900.00),
+(6, 6, 1000.00),
+(7, 7, 950.00),
+(8, 8, 2000.00),
+(8, 1, 1200.00),
+(8, 4, 1500.00);
 
 INSERT INTO platba (id_vypujcka, castka, datum_platby, zpusob) VALUES
-(1, 6000.00, '2025-01-10', 'karta'),
+(1, 10500.00, '2025-01-10', 'karta'),
 (2, 4400.00, '2025-02-01', 'hotovost'),
-(3, 12000.00, '2025-03-12', 'karta'),
+(3, 26400.00, '2025-03-12', 'karta'),
 (4, 5400.00, '2025-03-15', 'prevod'),
 (5, 1800.00, '2025-04-01', 'karta'),
 (6, 5000.00, '2025-04-05', 'hotovost'),
 (7, 3800.00, '2025-04-08', 'karta'),
-(8, 20000.00, '2025-04-10', 'prevod');
+(8, 47000.00, '2025-04-10', 'prevod');
 
-INSERT INTO skoda (id_vypujcka, poradi, popis, cena_opravy, datum_zjisteni) VALUES
+INSERT INTO skoda (id_polozka, poradi, popis, cena_opravy, datum_zjisteni) VALUES
 (1, 1, 'Skrabanec na zadnim narazniku', 2500.00, '2025-01-15'),
-(2, 1, 'Prasklé celni sklo', 8000.00, '2025-02-05'),
-(3, 1, 'Poskozene levé zrcatko', 3200.00, '2025-03-20'),
-(3, 2, 'Promacknute dvere ridice', 6500.00, '2025-03-20'),
-(4, 1, 'Sjete pneumatiky', 4800.00, '2025-03-18'),
-(5, 1, 'Skvrna na sedacce', 1200.00, '2025-04-03'),
-(6, 1, 'Odrene disky kol', 2000.00, '2025-04-10');
+(2, 1, 'Praskle celni sklo', 8000.00, '2025-01-15'),
+(3, 1, 'Poskozene levé zrcatko', 3200.00, '2025-02-05'),
+(4, 1, 'Promacknute dvere ridice', 6500.00, '2025-03-20'),
+(5, 1, 'Sjete pneumatiky', 4800.00, '2025-03-20'),
+(5, 2, 'Skvrna na sedacce', 1200.00, '2025-03-20'),
+(6, 1, 'Odrene disky kol', 2000.00, '2025-03-18');

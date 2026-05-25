@@ -2,6 +2,7 @@
 
 DROP TABLE IF EXISTS skoda;
 DROP TABLE IF EXISTS platba;
+DROP TABLE IF EXISTS vypujcka_vozidlo;
 DROP TABLE IF EXISTS vypujcka;
 DROP TABLE IF EXISTS vozidlo;
 DROP TABLE IF EXISTS model;
@@ -87,7 +88,6 @@ CREATE TABLE zakaznik (
 CREATE TABLE vypujcka (
     id_vypujcka     INT             NOT NULL AUTO_INCREMENT,
     id_zakaznik     INT             NOT NULL,
-    id_vozidlo      INT             NOT NULL,
     id_zamestnanec  INT             NOT NULL,
     datum_od        DATE            NOT NULL,
     datum_do        DATE            NOT NULL,
@@ -97,12 +97,25 @@ CREATE TABLE vypujcka (
         REFERENCES zakaznik(id_zakaznik)
         ON DELETE RESTRICT
         ON UPDATE CASCADE,
-    FOREIGN KEY (id_vozidlo)
-        REFERENCES vozidlo(id_vozidlo)
-        ON DELETE RESTRICT
-        ON UPDATE CASCADE,
     FOREIGN KEY (id_zamestnanec)
         REFERENCES zamestnanec(id_zamestnanec)
+        ON DELETE RESTRICT
+        ON UPDATE CASCADE
+);
+
+CREATE TABLE vypujcka_vozidlo (
+    id_polozka      INT             NOT NULL AUTO_INCREMENT,
+    id_vypujcka     INT             NOT NULL,
+    id_vozidlo      INT             NOT NULL,
+    cena_za_den     DECIMAL(10,2)   NOT NULL,
+    PRIMARY KEY (id_polozka),
+    UNIQUE (id_vypujcka, id_vozidlo),
+    FOREIGN KEY (id_vypujcka)
+        REFERENCES vypujcka(id_vypujcka)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
+    FOREIGN KEY (id_vozidlo)
+        REFERENCES vozidlo(id_vozidlo)
         ON DELETE RESTRICT
         ON UPDATE CASCADE
 );
@@ -121,14 +134,14 @@ CREATE TABLE platba (
 );
 
 CREATE TABLE skoda (
-    id_vypujcka     INT             NOT NULL,
+    id_polozka      INT             NOT NULL,
     poradi          INT             NOT NULL,
     popis           VARCHAR(200)    NOT NULL,
     cena_opravy     DECIMAL(10,2)   NOT NULL,
     datum_zjisteni  DATE            NOT NULL,
-    PRIMARY KEY (id_vypujcka, poradi),
-    FOREIGN KEY (id_vypujcka)
-        REFERENCES vypujcka(id_vypujcka)
+    PRIMARY KEY (id_polozka, poradi),
+    FOREIGN KEY (id_polozka)
+        REFERENCES vypujcka_vozidlo(id_polozka)
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );
